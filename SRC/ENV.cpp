@@ -1,4 +1,4 @@
-/*
+/**
  *ここにはライブラリみたいに色々書くよ〜
  *便利機能だね！！
 */
@@ -22,7 +22,7 @@ String JSON_PARSE(String KEY, String JSON_DATA){
 	return json[KEY];
 }
 
-/*
+/**
  *ファイル取得
 */
 String FILE_GET(String PATH){
@@ -49,9 +49,49 @@ String FILE_GET(String PATH){
 	return "";
 }
 
-/*
+/**
  *文字列出力
 */
 void PRINT(String TEXT){
 	std::cout << TEXT << std::endl;
+}
+
+//「メモリに受け取るためのコールバック関数」らしい
+size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* response) {
+	size_t totalSize = size * nmemb;
+	response->append(static_cast<char*>(contents), totalSize);
+	return totalSize;
+}
+/**
+ * HTTPリクエスト
+*/
+String HTTP_REQUEST(String URI){
+	CURL* curl;
+	CURLcode res;
+	std::string response;
+
+	// CURLセットアップ
+	curl = curl_easy_init();
+	if (curl) {
+		// URL指定
+		curl_easy_setopt(curl, CURLOPT_URL, "http://example.com");
+
+		// 応答をメモリに受け取る設定
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+
+		// リクエスト送信
+		res = curl_easy_perform(curl);
+		if (res != CURLE_OK) {
+			std::cerr << "リクエストの送信に失敗しました: " << curl_easy_strerror(res) << std::endl;
+		}
+		
+		// CURLクリーンアップ
+		curl_easy_cleanup(curl);
+
+		// 応答返す
+		return response;
+	}else{
+		return "";
+	}
 }
