@@ -74,7 +74,7 @@ String HTTP_REQUEST(String URI){
 	curl = curl_easy_init();
 	if (curl) {
 		// URL指定
-		curl_easy_setopt(curl, CURLOPT_URL, "http://example.com");
+		curl_easy_setopt(curl, CURLOPT_URL, URI.c_str());
 
 		// 応答をメモリに受け取る設定
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
@@ -83,7 +83,7 @@ String HTTP_REQUEST(String URI){
 		// リクエスト送信
 		res = curl_easy_perform(curl);
 		if (res != CURLE_OK) {
-			std::cerr << "リクエストの送信に失敗しました: " << curl_easy_strerror(res) << std::endl;
+			return "";
 		}
 		
 		// CURLクリーンアップ

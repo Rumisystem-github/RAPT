@@ -10,7 +10,7 @@
 
 typedef std::string String;//std::stringをStringとして省略
 
-String RAPT_PRC = "1.0";
+//String RAPT_PRC = "1.0";
 
 void PRINT(String TEXT);//文字列出力用
 String FILE_GET(String PATH);//ファイル取得
