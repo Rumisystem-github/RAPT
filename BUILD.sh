@@ -1,0 +1,1 @@
+clang -o ./BIN/rapt ./SRC/*.cpp -lcurl -lstdc++
