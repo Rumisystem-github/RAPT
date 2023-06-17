@@ -89,26 +89,26 @@ String HTTP_REQUEST(String URI){
 	CURLcode res;
 	std::string response;
 
-	// CURLセットアップ
+	//CURLセットアップ
 	curl = curl_easy_init();
 	if (curl) {
-		// URL指定
+		//URL指定
 		curl_easy_setopt(curl, CURLOPT_URL, URI.c_str());
 
-		// 応答をメモリに受け取る設定
+		//応答をメモリに受け取る設定
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 
-		// リクエスト送信
+		//リクエスト送信
 		res = curl_easy_perform(curl);
 		if (res != CURLE_OK) {
 			return "";
 		}
 		
-		// CURLクリーンアップ
+		//CURLクリーンアップ
 		curl_easy_cleanup(curl);
 
-		// 応答返す
+		//応答返す
 		return response;
 	}else{
 		return "";
