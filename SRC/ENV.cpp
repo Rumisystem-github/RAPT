@@ -15,22 +15,30 @@
  *JSON解析
 */
 String JSON_PARSE(String KEY, String JSON_DATA){
-	//nlohmannはChatGPTによると標準ライブラリらしい、ほんとかあ？
+	try {
+		//nlohmannはChatGPTによると標準ライブラリらしい、ほんとかあ？
 
-	nlohmann::json json = nlohmann::json::parse(JSON_DATA);
-	
-	return json[KEY];
+		nlohmann::json json = nlohmann::json::parse(JSON_DATA);
+
+		return json[KEY];
+	}catch(const std::exception& e){
+		std::cout << "[ ERR ]JSON解析エラー: " << e.what() << std::endl;
+		return "";
+	}
 }
 
 /*
  *配列JSONの、配列の数
 */
 int JSON_PARSE_ARRAY_COUNT(String JSON_DATA){
-	//nlohmannはChatGPTによると標準ライブラリらしい、ほんとかあ？
-
-	nlohmann::json json = nlohmann::json::parse(JSON_DATA);
+	try{
+		nlohmann::json json = nlohmann::json::parse(JSON_DATA);
 	
-	return json.size();
+		return json.size();
+	}catch(const std::exception& e){
+		std::cout << "[ ERR ]JSON解析エラー: " << e.what() << std::endl;
+		return 0;
+	}
 }
 
 /**
