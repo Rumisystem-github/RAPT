@@ -22,6 +22,17 @@ String JSON_PARSE(String KEY, String JSON_DATA){
 	return json[KEY];
 }
 
+/*
+ *配列JSONの、配列の数
+*/
+int JSON_PARSE_ARRAY_COUNT(String JSON_DATA){
+	//nlohmannはChatGPTによると標準ライブラリらしい、ほんとかあ？
+
+	nlohmann::json json = nlohmann::json::parse(JSON_DATA);
+	
+	return json.size();
+}
+
 /**
  *ファイル取得
 */

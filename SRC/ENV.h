@@ -13,8 +13,12 @@ typedef std::string String;//std::stringをStringとして省略
 //String RAPT_PRC = "1.0";
 
 void PRINT(String TEXT);//文字列出力用
+
 String FILE_GET(String PATH);//ファイル取得
+
 String JSON_PARSE(String KEY, String JSON_DATA);//JSON解析
+int JSON_PARSE_ARRAY_COUNT(String JSON_DATA);//配列JSONの、配列の数
+
 String HTTP_REQUEST(String URI);//HTTPリクエスト
 
 #endif  // STRING_UTILS_H

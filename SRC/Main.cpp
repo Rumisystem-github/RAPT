@@ -30,10 +30,12 @@ int main(int argc, char* argv[]){
 			PRINT("[ LOG ]PAC URI:" + REPO_INDEX_PLU);
 
 			//パッケージリストを取得
+			PRINT("[ *** ]GET:" + REQ_URI + "/" + REPO_INDEX_PLU);
 			String REPO_LIST_DATA = HTTP_REQUEST(REQ_URI + "/" + REPO_INDEX_PLU);//リクエスト送信
 			if(REPO_LIST_DATA != ""){//エラーチェック
 				//成功
-				PRINT(REPO_LIST_DATA);
+				PRINT("[ OK ]" + std::to_string(JSON_PARSE_ARRAY_COUNT(REPO_LIST_DATA)) + "件のパッケージが見つかりました");
+				PRINT("[ *** ]アップデートのチェックをしています。。。");
 			}else{
 				//エラー
 				PRINT("[ ERR ]失敗 GET:" + REQ_URI + "/" + REPO_INDEX_PLU);
