@@ -23,7 +23,7 @@ void HELP(){
 	PRINT("│");
 }
 
-void UPDATE(String SETTING){
+int UPDATE(String SETTING){
 	String REQ_URI = JSON_PARSE("URI", SETTING);//リクエスト先URI
 
 	PRINT("[ *** ]GET:" + REQ_URI);
@@ -57,27 +57,27 @@ void UPDATE(String SETTING){
 		PRINT("要求したサーバーは、本当にRAPTのリポジトリサーバーですか？確認してください。");
 		return 1;
 	}
+
+	return 0;
 }
 
+//mainはintでやる決まりでも有るんかな
 int main(int argc, char* argv[]){
-	if(argc <= 1){
+	if(argc <= 1){//コマンドライン引数があったか
 		HELP();
 		return 0;
 	}
 	
-	//mainはintでやる決まりでも有るんかな
+	/*ここから設定ファイル読み込み*/
 	String SETTING = FILE_GET("./BIN/SETTING.json");//設定ファイルを読み込み
 	if(SETTING != ""){//エラーチェック
-		switch (argv[1][0]){//コマンドライン引数をチェック
-			case 'u':
-				if (std::string(argv[1]) == "update") {
-					PRINT("[ *** ]パッケージリストを更新します...");
-					UPDATE(SETTING);
-				}
-				break;
-
-			default:
-				break;
+		String CMD = std::string(argv[1]);
+		if(CMD == "update" || CMD == "-Syy"){
+			return UPDATE(SETTING);
+		}else if (CMD == "upgrade" || CMD == "-Syyu"){
+			PRINT("実装中");
+		}else if (CMD == "install"){
+			PRINT("実装中");
 		}
 	}else{
 		PRINT("設定ファイルが異常です、確認してください");
